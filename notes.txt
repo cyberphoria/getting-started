@@ -1,10 +1,31 @@
-docker run -dp 3000:3000 YOUR-USER-NAME/getting-started
+# check docker processes
+docker ps
+
+
+# remove process
+docker rm -f <id>
+
 
 # run ubuntu image
 docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"
 
-# Start a dev-mode container (Windows)
-PS> docker run -dp 3000:3000 `
+# create volume
+docker volume create todo-db
+
+# start container with persistent DB
+docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+
+# see where data stored
+docker volume inspect todo-db
+
+# Start a dev-mode container (Windows) (in ./apps/)
+docker run -dp 3000:3000 `
      -w /app -v "$(pwd):/app" `
      node:12-alpine `
      sh -c "yarn install && yarn run dev"
+
+# check docker logs
+     docker logs -f <container-id>
+
+# build container
+docker build -t getting-started .
