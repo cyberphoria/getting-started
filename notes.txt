@@ -29,3 +29,28 @@ docker run -dp 3000:3000 `
 
 # build container
 docker build -t getting-started .
+
+# network
+# https://docs.docker.com/get-started/07_multi_container/
+
+# create a network
+docker network create todo-app
+
+# start a MySQL container and attach it to the network.
+PS> docker run -d `
+     --network todo-app --network-alias mysql `
+     -v todo-mysql-data:/var/lib/mysql `
+     -e MYSQL_ROOT_PASSWORD=secret `
+     -e MYSQL_DATABASE=todos `
+     mysql:5.7
+
+
+# connect to the database and verify it connects
+docker exec -it <mysql-container-id> mysql -u root -p
+
+# connect to mysql
+docker run -it --network todo-app nicolaka/netshoot
+
+# change environment variables
+mysql> ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'secret';
+mysql> flush privileges;
