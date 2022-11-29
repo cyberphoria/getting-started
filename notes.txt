@@ -54,3 +54,8 @@ docker run -it --network todo-app nicolaka/netshoot
 # change environment variables
 mysql> ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'secret';
 mysql> flush privileges;
+
+# docker compose
+# tear down application
+# include --volumes flag to also remove named volumes
+docker compose down
