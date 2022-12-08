@@ -59,3 +59,7 @@ mysql> flush privileges;
 # tear down application
 # include --volumes flag to also remove named volumes
 docker compose down
+
+# scan for vulnerabilities using Snyk
+# https://docs.docker.com/get-started/09_image_best/
+docker scan getting-started
